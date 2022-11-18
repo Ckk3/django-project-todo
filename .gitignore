@@ -1,1 +1,5 @@
 venv
+todo/todo/__pycache__
+todo/about/__pycache__
+todo/tasks/__pycache__
+todo/users/__pycache__
