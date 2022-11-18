@@ -5,4 +5,13 @@ from django.http import HttpResponse
 
 
 def helloWorld(request):
-    return HttpResponse('Hello World!')
+    if request.method == 'GET':
+        return HttpResponse('Receive Get!')
+
+
+def task_list(request):
+    return render(request, 'tasks/list.html')
+
+
+def your_name(request, name):
+    return render(request, 'tasks/your_name.html', {'name': name})
