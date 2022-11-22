@@ -1,16 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-# Create your views here.
+from .models import Task
 
 
 def helloWorld(request):
-    if request.method == 'GET':
-        return HttpResponse('Receive Get!')
+    return HttpResponse('Receive Get!')
 
 
 def task_list(request):
-    return render(request, 'tasks/list.html')
+    tasks = Task.objects.all()
+    return render(request, 'tasks/list.html', {'tasks': tasks})
 
 
 def your_name(request, name):
