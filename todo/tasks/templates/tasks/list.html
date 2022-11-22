@@ -15,7 +15,7 @@
     <ul class="task-list">
         {% for task in tasks %}
         <li class="task-item">
-            <span><a href="/task/{{task.id}}"></a>{{task.title}}</span>
+            <span><a href="/tasks/{{task.id}}">{{task.title}}</a></span>
             <span><i class="fas fa-trash"></i></span>
             <span><i class="fas fa-edit"></i></span>
         </li>
