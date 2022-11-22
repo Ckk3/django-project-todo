@@ -4,12 +4,13 @@ from .forms import TaskForm
 from .models import Task
 from django.contrib import messages
 from django.core.paginator import Paginator
-
+from django.contrib.auth.decorators import login_required
 
 
 def helloWorld(request):
     return HttpResponse('Receive Get!')
 
+@login_required
 def task_list(request):
     tasks_list = Task.objects.all().order_by('-created_at')
 
@@ -24,10 +25,13 @@ def task_list(request):
 def your_name(request, name):
     return render(request, 'tasks/your_name.html', {'name': name})
 
+
+@login_required
 def task_view(request, id):
     task = get_object_or_404(Task, pk=id)
     return render(request, 'tasks/task_view.html', {'task': task})
 
+@login_required
 def new_task(request):
     if request.method == 'POST':
         #Verifica se o metodo e post, ou seja, os dados ja vieram do request
@@ -47,6 +51,7 @@ def new_task(request):
         form = TaskForm()
         return render(request, 'tasks/add_task.html', {'form': form})
 
+@login_required
 def edit_task(request, id):
     # Buscar a task
     task = get_object_or_404(Task, pk=id)
@@ -66,6 +71,7 @@ def edit_task(request, id):
     else:
         return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
 
+@login_required
 def delete_task(request, id):
     # Buscar a task
     task = get_object_or_404(Task, pk=id)
