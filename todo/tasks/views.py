@@ -30,6 +30,7 @@ def new_task(request):
             new_task = form.save(commit=False)
             # Add doing equal doing
             new_task.done = '1'
+            messages.info(request, 'Tarefa adicionada com sucesso')
             new_task.save()
             #Return to home
             return redirect('/')
@@ -50,12 +51,12 @@ def edit_task(request, id):
         if form.is_valid():
             #Salva alteracao
             form.save()
+            messages.info(request, 'Tarefa editada com sucesso')
             return redirect('/')
         else:
             return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
     else:
         return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
-
 
 def delete_task(request, id):
     # Buscar a task
