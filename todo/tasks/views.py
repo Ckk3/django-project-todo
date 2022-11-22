@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .forms import TaskForm
 from .models import Task
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 
 
@@ -10,7 +11,14 @@ def helloWorld(request):
     return HttpResponse('Receive Get!')
 
 def task_list(request):
-    tasks = Task.objects.all().order_by('-created_at')
+    tasks_list = Task.objects.all().order_by('-created_at')
+
+    paginator = Paginator(tasks_list, 3)
+
+    page = request.GET.get('page')
+
+    tasks = paginator.get_page(page)
+
     return render(request, 'tasks/list.html', {'tasks': tasks})
 
 def your_name(request, name):
