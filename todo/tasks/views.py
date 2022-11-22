@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .forms import TaskForm
 from .models import Task
+from django.contrib import messages
 
 
 
@@ -60,4 +61,5 @@ def delete_task(request, id):
     # Buscar a task
     task = get_object_or_404(Task, pk=id)
     task.delete()
+    messages.info(request, 'Tarefa deletada com sucesso')
     return redirect('/')
