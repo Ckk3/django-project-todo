@@ -1,0 +1,16 @@
+!{% extends 'base.html' %}
+
+{% block title %}Adicionar Task{% endblock %}
+
+{% block content %}
+<div class="offset-1 col-10 list-div">
+    <h1>Adicionar Task</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-success" value="Criar Task">
+    </form>
+</div>
+
+{% endblock %}

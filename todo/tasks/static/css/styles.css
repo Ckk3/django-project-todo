@@ -27,10 +27,11 @@
     background-color: azure;
     cursor: pointer;
     display: inline-block;
-    color: white;
+    color: black;
     padding: 8px;
     border-radius: 5px;
     margin-right: 25px;
+    text-decoration: none;
 }
 
 .fas.fa-plus {

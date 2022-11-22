@@ -19,7 +19,9 @@ from . import views
 
 urlpatterns = [
     path('helloworld/', views.helloWorld),
+    path('', views.task_list, name='task-list'),
     path('tasks/', views.task_list, name='task-list'),
     path('tasks/<int:id>', views.task_view, name='task-view'),
-    path('yourname/<str:name>', views.your_name, name='your-name')
+    path('yourname/<str:name>', views.your_name, name='your-name'),
+    path('newtask/', views.new_task, name='new-task'),
 ]
