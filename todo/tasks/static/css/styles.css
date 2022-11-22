@@ -46,6 +46,7 @@
     position: absolute;
     top: 15px;
     right: 26px;
+    cursor: pointer;
 }
 
 .search-div {
