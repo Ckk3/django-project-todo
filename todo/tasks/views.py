@@ -36,3 +36,22 @@ def new_task(request):
     else:
         form = TaskForm()
         return render(request, 'tasks/add_task.html', {'form': form})
+
+def edit_task(request, id):
+    # Buscar a task
+    task = get_object_or_404(Task, pk=id)
+    #Prepoular o formulario para edicao, utiliza a instancia
+    form = TaskForm(instance=task)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+
+        if form.is_valid():
+            #Salva alteracao
+            form.save()
+            return redirect('/')
+        else:
+            return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
+    else:
+        return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
+
