@@ -55,3 +55,9 @@ def edit_task(request, id):
     else:
         return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
 
+
+def delete_task(request, id):
+    # Buscar a task
+    task = get_object_or_404(Task, pk=id)
+    task.delete()
+    return redirect('/')
