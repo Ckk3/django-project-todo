@@ -12,7 +12,7 @@ def helloWorld(request):
 
 @login_required
 def task_list(request):
-    tasks_list = Task.objects.all().order_by('-created_at')
+    tasks_list = Task.objects.all().order_by('-created_at').filter(user=request.user)
 
     paginator = Paginator(tasks_list, 3)
 
@@ -28,7 +28,7 @@ def your_name(request, name):
 
 @login_required
 def task_view(request, id):
-    task = get_object_or_404(Task, pk=id)
+    task = get_object_or_404(Task, pk=id, user=request.user)
     return render(request, 'tasks/task_view.html', {'task': task})
 
 @login_required
@@ -42,6 +42,7 @@ def new_task(request):
             new_task = form.save(commit=False)
             # Add doing equal doing
             new_task.done = '1'
+            new_task.user = request.user
             messages.info(request, 'Tarefa adicionada com sucesso')
             new_task.save()
             #Return to home
