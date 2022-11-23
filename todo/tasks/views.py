@@ -5,6 +5,7 @@ from .models import Task
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+import datetime
 
 
 def helloWorld(request):
@@ -14,13 +15,17 @@ def helloWorld(request):
 def task_list(request):
     tasks_list = Task.objects.all().order_by('-created_at').filter(user=request.user)
 
+    tasks_done_recently = Task.objects.filter(done='2', user=request.user,updated_at__gt=datetime.datetime.now()-datetime.timedelta(days=30)).count()
+    tasks_done = Task.objects.filter(done='2', user=request.user).count()
+    tasks_doing = Task.objects.filter(done='1', user=request.user).count()
+    
     paginator = Paginator(tasks_list, 3)
 
     page = request.GET.get('page')
 
     tasks = paginator.get_page(page)
 
-    return render(request, 'tasks/list.html', {'tasks': tasks})
+    return render(request, 'tasks/list.html', {'tasks': tasks, 'tasks_done_recently': tasks_done_recently, 'tasks_done': tasks_done, 'tasks_doing': tasks_doing})
 
 def your_name(request, name):
     return render(request, 'tasks/your_name.html', {'name': name})
