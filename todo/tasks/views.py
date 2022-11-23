@@ -55,7 +55,7 @@ def new_task(request):
 @login_required
 def edit_task(request, id):
     # Buscar a task
-    task = get_object_or_404(Task, pk=id)
+    task = get_object_or_404(Task, pk=id, user=request.user)
     #Prepoular o formulario para edicao, utiliza a instancia
     form = TaskForm(instance=task)
 
@@ -75,7 +75,7 @@ def edit_task(request, id):
 @login_required
 def delete_task(request, id):
     # Buscar a task
-    task = get_object_or_404(Task, pk=id)
+    task = get_object_or_404(Task, pk=id, user=request.user)
     task.delete()
     messages.info(request, 'Tarefa deletada com sucesso')
     return redirect('/')
