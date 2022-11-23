@@ -72,6 +72,21 @@ def edit_task(request, id):
     else:
         return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
 
+
+@login_required
+def change_status(request, id):
+    # Buscar a task
+    task = get_object_or_404(Task, pk=id, user=request.user)
+
+    if task.done == '1':
+        task.done = '2'
+    else:
+        task.done = '1'
+    
+    task.save()
+    return redirect('/')
+
+
 @login_required
 def delete_task(request, id):
     # Buscar a task

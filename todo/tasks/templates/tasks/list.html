@@ -25,10 +25,15 @@
     {% endif %}
     <ul class="task-list">
         {% for task in tasks %}
-        <li class="task-item">
+        {% if task.done == '1' %}
+            <li class="task-item">
+        {% else %}
+            <li class="task-item done">
+        {% endif %}
             <span><a href="/tasks/{{task.id}}">{{task.title}}</a></span>
             <span><a href="/deletetask/{{task.id}}" class="delete-btn"><i class="fas fa-trash"></i></a></span>
             <span><a href="/edittask/{{task.id}}"><i class="fas fa-edit"></i></a></span>
+            <span><a href="/changestatus/{{task.id}}"><i class="fas fa-check"></i></a></span>
         </li>
         {% endfor %}
     </ul>
